@@ -2,7 +2,7 @@
 
 import os
 import re
-from collections import OrderedDict
+from collections import Counter
 
 
 def load_data(filepath):
@@ -13,21 +13,8 @@ def load_data(filepath):
 
 
 def get_most_frequent_words(text):
-    splited_text = text.split()
-    words = set(splited_text)
-    counts = {}
-    for word in words:
-        counts[word] = splited_text.count(word)
-    ordered_counts = OrderedDict(sorted(counts.items(),
-                                        key=lambda t: t[1], reverse=True))
-    for count_number, count in enumerate(ordered_counts):
-        print('{0} - {1}'.format(count, ordered_counts[count]))
-        if count_number == 9:
-            break
-
-
-def clear_text(raw_text):
-    return re.sub('–|\.|,|…|\[|\]|!|\?|\(|\)|«|»|;|:|[0-9]|', '', raw_text)
+    words = re.findall(r'\w+', text, re.UNICODE)
+    return Counter(words)
 
 
 if __name__ == '__main__':
@@ -36,5 +23,10 @@ if __name__ == '__main__':
     if text is None:
         print('Файл не найден. См. пример использования.')
     else:
-        cleared_text = clear_text(text)
-        get_most_frequent_words(cleared_text)
+        words_count = get_most_frequent_words(text).most_common(10)
+
+        for word, count in words_count:
+            print('{0} {1}'.format(
+                word.ljust(10, '.'),
+                count)
+            )
