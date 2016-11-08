@@ -7,6 +7,14 @@
 Пример использования:
 ```sh
 cd 5_lang_frequency
-python lang_frequency.py
-Введите путь к файлу: C:\Users\...\5_lang_frequency\rus.txt
+$ python lang_frequency.py -h
+usage: lang_frequency.py [-h] -f FILEPATH
+
+Принимает текстовый файл в качестве аргумента и выводит 10 самых популярных
+слов в нем.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FILEPATH, --filepath FILEPATH
+                        Путь до файла.
 ```
