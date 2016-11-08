@@ -2,6 +2,7 @@
 
 import os
 import re
+import argparse
 from collections import Counter
 
 
@@ -18,8 +19,16 @@ def get_most_frequent_words(text):
 
 
 if __name__ == '__main__':
-    path = str(input('Введите путь к файлу: '))
-    text = load_data(path)
+    parser = argparse.ArgumentParser(description='Принимает текстовый файл в качестве аргумента '
+                                                 'и выводит 10 самых популярных слов в нем.')
+    parser.add_argument('-f', '--filepath',
+                        type=str,
+                        required=True,
+                        help='Путь до файла.')
+
+    args = parser.parse_args()
+
+    text = load_data(args.filepath)
     if text is None:
         print('Файл не найден. См. пример использования.')
     else:
